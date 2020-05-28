@@ -51,7 +51,7 @@ app.post('/api/sendMessage', (req, res) => {
     });
 
     const mailOptions = {
-      from: data.email,
+      from: process.env.email,
       to: 'hello@varsityhype.com',
       subject: 'Varsity Hype Contact Form',
       html: `<p>Name: ${data.name}</p>
