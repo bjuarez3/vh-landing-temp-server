@@ -62,7 +62,7 @@ app.post('/api/sendMessage', (req, res) => {
     transporter.sendMail(mailOptions, (error, response) => {
       if (error) {
         console.log(error);
-        res.staus(500).send(error);
+        res.status(500).send(error);
       } else {
         console.log(response);
         res.send('Success');
