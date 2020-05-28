@@ -28,39 +28,49 @@ app.listen(port, () => {
 });
 
 app.get('/', (req, res) => {
-  res.send('Hello from Varsity Hype!');
+  try {
+    res.status(200).send('Hello from Varsity Hype!').end();
+  } catch (e) {
+    console.log(e.toString());
+    res.status(500).json({ error: e.toString() });
+  }
 });
 
 app.post('/api/sendMessage', (req, res) => {
-  const data = req.body;
-  console.log(data);
+  try {
+    const data = req.body;
+    console.log(data);
 
-  const transporter = nodemailer.createTransport({
-    service: 'gmail',
-    secure: false,
-    auth: {
-      user: process.env.email,
-      pass: process.env.password,
-    },
-  });
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      secure: false,
+      auth: {
+        user: process.env.email,
+        pass: process.env.password,
+      },
+    });
 
-  const mailOptions = {
-    from: data.email,
-    to: 'hello@varsityhype.com',
-    subject: 'Varsity Hype Contact Form',
-    html: `<p>Name: ${data.name}</p>
-          <p>Email: ${data.email}</p>
-          <p>Message: ${data.message}</p>`,
-  };
+    const mailOptions = {
+      from: data.email,
+      to: 'hello@varsityhype.com',
+      subject: 'Varsity Hype Contact Form',
+      html: `<p>Name: ${data.name}</p>
+            <p>Email: ${data.email}</p>
+            <p>Message: ${data.message}</p>`,
+    };
 
-  transporter.sendMail(mailOptions, (error, res) => {
-    if (error) {
-      console.log(error);
-      res.send(error);
-    } else {
-      console.log(res);
-      res.send('Success');
-    }
-    transporter.close();
-  });
+    transporter.sendMail(mailOptions, (error, res) => {
+      if (error) {
+        console.log(error);
+        res.send(error);
+      } else {
+        console.log(res);
+        res.send('Success');
+      }
+      transporter.close();
+    });
+  } catch (e) {
+    console.log(e.toString());
+    res.status(500).json({ error: e.toString() }).end();
+  }
 });
