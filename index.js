@@ -6,9 +6,14 @@ const dotenv = require('dotenv');
 
 const result = dotenv.config();
 
-console.log(result);
 if (result.error) {
-  throw result.error;
+  if (process.env.NODE_ENV === 'production' && result.error.code === 'ENOENT') {
+    console.info(
+      'expected this error because we are in production without a .env file'
+    );
+  } else {
+    throw result.error;
+  }
 }
 
 const app = express();
