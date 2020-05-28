@@ -59,12 +59,12 @@ app.post('/api/sendMessage', (req, res) => {
             <p>Message: ${data.message}</p>`,
     };
 
-    transporter.sendMail(mailOptions, (error, res) => {
+    transporter.sendMail(mailOptions, (error, response) => {
       if (error) {
         console.log(error);
-        res.send(error);
+        res.staus(500).send(error);
       } else {
-        console.log(res);
+        console.log(response);
         res.send('Success');
       }
       transporter.close();
