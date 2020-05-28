@@ -11,7 +11,6 @@ if (result.error) {
 }
 
 const app = express();
-
 const port = process.env.PORT;
 
 app.use(bodyParser.json());
