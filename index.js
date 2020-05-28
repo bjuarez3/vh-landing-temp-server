@@ -42,7 +42,7 @@ app.post('/api/sendMessage', (req, res) => {
     console.log(data);
 
     const transporter = nodemailer.createTransport({
-      service: 'yahoo',
+      service: 'Yahoo',
       secure: false,
       auth: {
         user: process.env.email,
