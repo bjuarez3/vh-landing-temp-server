@@ -7,7 +7,7 @@ const dotenv = require('dotenv');
 const result = dotenv.config();
 
 if (result.error) {
-  console.log(error);
+  console.log(result.error);
   throw result.error;
 }
 
@@ -20,6 +20,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.listen(port, () => {
   console.log(`Your port is ${process.env.PORT}`);
+});
+
+app.get('/', (req, res) => {
+  res.send('Hello from Varsity Hype!');
 });
 
 app.post('/api/sendMessage', (req, res) => {
