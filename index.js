@@ -18,7 +18,7 @@ if (result.error) {
 
 const app = express();
 app.use(cors());
-const port = result.PORT;
+const port = process.env.PORT || result.PORT;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
